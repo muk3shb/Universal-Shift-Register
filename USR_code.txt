@@ -1,0 +1,46 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:    19:58:58 04/09/2024 
+// Design Name: 
+// Module Name:    USR 
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description: 
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+module USR(clr, clk, left_in,right_in, sel, par_in, out);
+
+	input clr, clk, left_in, right_in;
+	input [1:0] sel;
+	input [3:0]par_in;
+
+output reg [3:0]out;
+
+//behavioural modeling style
+
+	always@(posedge clk)
+
+		begin
+		if (clr)
+		out = 4'b0000;
+		else
+		begin
+			case(sel)
+				2'b00: out = out; //no change
+				2'b01: out = {right_in, out[3:1]}; // right shift
+				2'b10: out = {out[2:0], left_in}; //left shift
+				2'b11: out = par_in; //parellel load
+			endcase
+		end
+	end 
+endmodule

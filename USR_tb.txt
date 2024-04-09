@@ -1,0 +1,81 @@
+`timescale 1ns / 1ps
+
+////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer:
+//
+// Create Date:   20:07:54 04/09/2024
+// Design Name:   USR
+// Module Name:   C:/Users/hp/OneDrive/Desktop/Group 5/USR/USR_tb.v
+// Project Name:  USR
+// Target Device:  
+// Tool versions:  
+// Description: 
+//
+// Verilog Test Fixture created by ISE for module: USR
+//
+// Dependencies:
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+////////////////////////////////////////////////////////////////////////////////
+
+module USR_tb;
+
+	// Inputs
+	reg clr;
+	reg clk;
+	reg left_in;
+	reg right_in;
+	reg [1:0] sel;
+	reg [3:0] par_in;
+
+	// Outputs
+	wire [3:0] out;
+
+	// Instantiate the Unit Under Test (UUT)
+	USR uut (
+		.clr(clr), 
+		.clk(clk), 
+		.left_in(left_in), 
+		.right_in(right_in), 
+		.sel(sel), 
+		.par_in(par_in), 
+		.out(out)
+	);
+
+	initial begin
+		// Initialize Inputs
+		clr = 0;
+		clk = 0;
+		left_in = 0;
+		right_in = 0;
+		sel = 0;
+		par_in = 0;
+
+		// Wait 100 ns for global reset to finish
+		#10;
+        
+		// Add stimulus here
+		clr = 1'b1;
+		#10;
+		//out = 4'b000;
+		//#100;
+		clr = 1'b0;
+		#40;
+		
+		right_in = 1'b1;
+		sel = 2'b01;
+		#40;
+		
+		left_in = 1'b0;
+		sel = 2'b10;
+		#40;
+		par_in = 4'b1010;
+		sel = 2'b11;
+	end
+      always clk = #5 ~clk;
+endmodule
+
